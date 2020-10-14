@@ -15,6 +15,8 @@ import 'package:devtools_app/src/performance/performance_screen.dart';
 import 'package:devtools_app/src/screen.dart';
 import 'package:devtools_app/src/service_manager.dart';
 import 'package:devtools_app/src/timeline/timeline_screen.dart';
+import 'package:devtools_app/src/vm_developer/vm_developer_tools_screen.dart';
+import 'package:devtools_app/src/vm_service_wrapper.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/mocks.dart';
@@ -66,6 +68,7 @@ void main() {
             NetworkScreen,
             LoggingScreen,
             AppSizeScreen,
+            // VMDeveloperToolsScreen,
           ]));
     });
 
@@ -83,6 +86,7 @@ void main() {
             // NetworkScreen,
             LoggingScreen,
             // AppSizeScreen,
+            // VMDeveloperToolsScreen,
           ]));
     });
 
@@ -101,6 +105,7 @@ void main() {
             NetworkScreen,
             LoggingScreen,
             AppSizeScreen,
+            // VMDeveloperToolsScreen,
           ]));
     });
 
@@ -119,6 +124,7 @@ void main() {
             NetworkScreen,
             LoggingScreen,
             AppSizeScreen,
+            // VMDeveloperToolsScreen,
           ]));
     });
 
@@ -137,6 +143,7 @@ void main() {
             // NetworkScreen,
             LoggingScreen,
             // AppSizeScreen,
+            // VMDeveloperToolsScreen,
           ]));
     });
 
@@ -155,7 +162,28 @@ void main() {
             // NetworkScreen,
             // LoggingScreen,
             // AppSizeScreen,
+            // VMDeveloperToolsScreen,
           ]));
+    });
+
+    testWidgets('are correct for Dart CLI app with VM developer mode enabled',
+        (WidgetTester tester) async {
+      VmServicePrivate.enablePrivateRpcs = true;
+      setupMockValues();
+      expect(
+          visibleScreenTypes,
+          equals([
+            // InspectorScreen,
+            TimelineScreen,
+            MemoryScreen,
+            PerformanceScreen,
+            DebuggerScreen,
+            NetworkScreen,
+            LoggingScreen,
+            AppSizeScreen,
+            VMDeveloperToolsScreen,
+          ]));
+      VmServicePrivate.enablePrivateRpcs = false;
     });
   });
 }
